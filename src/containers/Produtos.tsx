@@ -1,27 +1,18 @@
-import { useEffect, useState } from 'react'
-import { Game } from '../App'
 import Produto from '../components/Produto'
+import { useGetJogosQuery } from '../services/api'
 
 import * as S from './styles'
 
-type Props = {
-  adicionarAoCarrinho: (jogo: Game) => void
-}
+const Produtos = () => {
+  const { data: jogos, isLoading } = useGetJogosQuery()
 
-const Produtos = ({ adicionarAoCarrinho }: Props) => {
-  const [games, setGames] = useState<Game[]>([])
-
-  useEffect(() => {
-    fetch('http://localhost:4000/produtos')
-      .then((res) => res.json())
-      .then((res) => setGames(res))
-  }, [])
+  if (isLoading) return <h2>Carregando...</h2>
 
   return (
     <>
       <S.Produtos>
-        {games.map((game) => (
-          <Produto key={game.id} game={game} aoComprar={adicionarAoCarrinho} />
+        {jogos?.map((game) => (
+          <Produto key={game.id} game={game} />
         ))}
       </S.Produtos>
     </>

@@ -1,8 +1,10 @@
-import { useState } from 'react'
+import { Provider } from 'react-redux'
 import Header from './components/Header'
 import Produtos from './containers/Produtos'
 
 import { GlobalStyle } from './styles'
+
+import { store } from './store'
 
 export type Game = {
   id: number
@@ -15,24 +17,14 @@ export type Game = {
 }
 
 function App() {
-  const [carrinho, setCarrinho] = useState<Game[]>([])
-
-  function adicionarAoCarrinho(jogo: Game) {
-    if (carrinho.find((game: { id: number }) => game.id === jogo.id)) {
-      alert('Item já adicionado')
-    } else {
-      setCarrinho([...carrinho, jogo])
-    }
-  }
-
   return (
-    <>
+    <Provider store={store}>
       <GlobalStyle />
       <div className="container">
-        <Header itensNoCarrinho={carrinho} />
-        <Produtos adicionarAoCarrinho={adicionarAoCarrinho} />
+        <Header />
+        <Produtos />
       </div>
-    </>
+    </Provider>
   )
 }
 
