@@ -25,7 +25,7 @@ function App() {
   }, [])
 
   function adicionarAoCarrinho(jogo: Game) {
-    if (carrinho.find((game) => game.id === jogo.id)) {
+    if (carrinho.find((game: { id: number }) => game.id === jogo.id)) {
       alert('Item já adicionado')
     } else {
       setCarrinho([...carrinho, jogo])
