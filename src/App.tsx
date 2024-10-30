@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Header from './components/Header'
 import Produtos from './containers/Produtos'
 
@@ -15,14 +15,7 @@ export type Game = {
 }
 
 function App() {
-  const [games, setGames] = useState<Game[]>([])
   const [carrinho, setCarrinho] = useState<Game[]>([])
-
-  useEffect(() => {
-    fetch('http://localhost:4000/produtos')
-      .then((res) => res.json())
-      .then((res) => setGames(res))
-  }, [])
 
   function adicionarAoCarrinho(jogo: Game) {
     if (carrinho.find((game: { id: number }) => game.id === jogo.id)) {
@@ -37,7 +30,7 @@ function App() {
       <GlobalStyle />
       <div className="container">
         <Header itensNoCarrinho={carrinho} />
-        <Produtos jogos={games} adicionarAoCarrinho={adicionarAoCarrinho} />
+        <Produtos adicionarAoCarrinho={adicionarAoCarrinho} />
       </div>
     </>
   )
