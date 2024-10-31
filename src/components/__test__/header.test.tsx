@@ -4,12 +4,12 @@ import { renderizarComProvider } from '../../utils/tests'
 
 describe('Teste p/ comp. Header', () => {
   test('Renderizar corretamente', () => {
-    renderizarComProvider(<Header></Header>)
+    renderizarComProvider(<Header />)
     expect(screen.getByText('EBAC Games')).toBeInTheDocument()
   })
 
   test('Deve renderizar com 2 itens no carrinho', () => {
-    renderizarComProvider(<Header></Header>, {
+    renderizarComProvider(<Header />, {
       preloadedState: {
         carrinho: {
           itens: [
@@ -36,6 +36,7 @@ describe('Teste p/ comp. Header', () => {
       }
     })
 
+    // expectativas
     expect(screen.getByTestId('id-qtd-carrinho').innerHTML).toContain('2')
   })
 })
