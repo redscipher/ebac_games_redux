@@ -1,6 +1,6 @@
 import { renderizarComProvider } from '../../utils/tests'
 import Produtos from '../Produtos'
-import { screen } from '@testing-library/react'
+import { screen, waitFor } from '@testing-library/react'
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
 
@@ -45,11 +45,20 @@ describe('testes p/ produtos', () => {
   afterEach(() => server.resetHandlers())
   afterAll(() => server.close())
 
-  test('deve renderizar corretamente', () => {
+  test('deve renderizar corretamente com carregamento', () => {
     const { debug } = renderizarComProvider(<Produtos />)
 
     debug()
     // expectativas
-    //expect(screen.getByText('Titulo2')).toBeInTheDocument()
+    expect(screen.getByText('Carregando...')).toBeInTheDocument()
+  })
+
+  test('deve renderizar corretamente com produtos', async () => {
+    const { debug } = renderizarComProvider(<Produtos />)
+    await waitFor(() => {
+      debug()
+      // expectativas
+      expect(screen.getByText('Titulo3')).toBeInTheDocument()
+    })
   })
 })
