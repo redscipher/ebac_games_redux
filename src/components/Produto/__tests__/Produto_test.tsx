@@ -12,7 +12,7 @@ const jogo = {
   titulo: 'Titulo2'
 }
 
-describe('testes p/ produot', () => {
+describe('testes p/ produto', () => {
   test('deve renderizar corretamente', () => {
     renderizarComProvider(<Produto game={jogo} />)
 
